@@ -5,7 +5,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-
+import data from '../backend.json';
 // Fix marker default icon
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -13,28 +13,43 @@ let DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const position = [51.505, -0.09];
+
+const positions = data.Waypoints
 
 class Map extends React.Component {
-  
-  render(){
+
+  constructor(props){
+    super(props)
+    this.currentPositionIndex = 0;
+    this.first_position = positions[this.currentPositionIndex];
+
+  }
+  render() {
     return (
       <div className='Map'>
-        <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{ height: '400px', width: '100%' }}>
+        <MapContainer center={this.first_position} zoom={3} scrollWheelZoom={false} style={{ height: '100%', width: '100%'}}>
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={position}>
+          {positions.map(item => (
+            <Marker key={positions.indexOf(item)} position={[item.lat, item.lng]}>
             <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
+              <p>{item.label}</p>
+              <button type="button">Go</button>
             </Popup>
           </Marker>
+          ))}
+          
         </MapContainer>
       </div>
-  
+
     );
   }
- 
+
+  highlightMarkup(){
+    
+  }
+
 };
 
 export default Map;
