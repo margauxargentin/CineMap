@@ -3,51 +3,61 @@ import './Map.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import markerIcon from '../media/marker.svg';
+import transparentMarkerIcon from '../media/marker-transparent.svg'
 import data from '../backend.json';
 // Fix marker default icon
-let DefaultIcon = L.icon({
-  iconUrl: icon,
-  shadowUrl: iconShadow
+let defaultIcon = L.icon({
+  iconUrl: markerIcon,
+  iconSize: [30, 80]
 });
-L.Marker.prototype.options.icon = DefaultIcon;
+
+let transparentIcon = L.icon({
+  iconUrl: transparentMarkerIcon,
+  iconSize: [30, 80]
+})
+
+L.Marker.prototype.options.icon = defaultIcon;
 
 
 const positions = data.Waypoints
 
 class Map extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
-    this.currentPositionIndex = 0;
-    this.first_position = positions[this.currentPositionIndex];
-
+    this.state = {
+      currPosIndex: 0,
+    }
   }
+
   render() {
+    const { currPosIndex } = this.state;
     return (
       <div className='Map'>
-        <MapContainer center={this.first_position} zoom={3} scrollWheelZoom={false} style={{ height: '100%', width: '100%'}}>
+        <MapContainer center={positions[currPosIndex]} zoom={3} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {positions.map(item => (
-            <Marker key={positions.indexOf(item)} position={[item.lat, item.lng]}>
-            <Popup>
-              <p>{item.label}</p>
-              <button type="button">Go</button>
-            </Popup>
-          </Marker>
+            <Marker key={positions.indexOf(item)} position={[item.lat, item.lng]} icon={positions.indexOf(item) === currPosIndex ? defaultIcon : transparentIcon} onClick={this.setCurrentMarker(positions.indexOf(item))}>
+              <Popup>
+                <p>{item.label}</p>
+                <button type="button">Go</button>
+              </Popup>
+            </Marker>
           ))}
-          
+
         </MapContainer>
       </div>
 
     );
   }
 
-  highlightMarkup(){
-    
+  setCurrentMarker(index) {
+    this.state.currPosIndex = index;
+    console.log(this.state.currPosIndex)
+
   }
 
 };

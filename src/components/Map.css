@@ -2,3 +2,7 @@
   height:50%;
   width:50%;
 }
+
+.current-marker{
+  background-color: red;
+}
