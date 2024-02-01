@@ -1,11 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
 import Player from './components/VideoPlayer';
+import Chapter from './components/Chapter';
 
 function App() {
   return (
     <div className="App">
-        <Player />
+        <Player position="pos"/>
     </div>
   );
 }
