@@ -6,6 +6,7 @@ import 'leaflet/dist/leaflet.css';
 import markerIcon from '../media/marker.svg';
 import transparentMarkerIcon from '../media/marker-transparent.svg'
 import data from '../backend.json';
+
 // Fix marker default icon
 let defaultIcon = L.icon({
   iconUrl: markerIcon,
@@ -39,8 +40,16 @@ class Map extends React.Component {
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {positions.map(item => (
-            <Marker key={positions.indexOf(item)} position={[item.lat, item.lng]} icon={positions.indexOf(item) === currPosIndex ? defaultIcon : transparentIcon} onClick={this.setCurrentMarker(positions.indexOf(item))}>
+          {positions.map((item, index) => (
+            <Marker
+              key={index}
+              position={[item.lat, item.lng]}
+              icon={index === this.state.currPosIndex ? defaultIcon : transparentIcon}
+              eventHandlers={{
+                click: (e) => {
+                  this.setCurrentMarker(e, index)
+                },
+              }}>
               <Popup>
                 <p>{item.label}</p>
                 <button type="button">Go</button>
@@ -50,14 +59,12 @@ class Map extends React.Component {
 
         </MapContainer>
       </div>
-
     );
   }
 
-  setCurrentMarker(index) {
-    this.state.currPosIndex = index;
-    console.log(this.state.currPosIndex)
-
+  setCurrentMarker(e, index) {
+    this.setState({ currPosIndex: index });
+    e.target.setIcon(defaultIcon);
   }
 
 };
