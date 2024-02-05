@@ -1,0 +1,8 @@
+.Map{
+  height:50%;
+  width:100%;
+}
+
+.current-marker{
+  background-color: red;
+}
