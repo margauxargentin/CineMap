@@ -4,6 +4,7 @@
 }
 h1 {
   padding-top:20px;
+  padding-bottom:20px;
   color:white;
 }
 .App {
@@ -15,27 +16,25 @@ h1 {
 body{
   height: 100%;
 }
-header{
-  height:10%;
-  width:100%;
-}
+
 main{
   display:flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  height:90%;
+  justify-content: space-evenly;
+  height:100%;
   width:100%;
 }
 
 #left{
-  width:50%;
+  width:48%;
   height:100%;
 }
 
 #right{
-  padding-left:2%;
-  width:50%;
+  width:48%;
   height:100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
 }

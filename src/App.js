@@ -8,11 +8,9 @@ import Chapter from './components/Chapter';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>CineMap App</h1>
-      </header>
       <main>
         <section id="left">
+        <h1>CineMap App</h1>
           <Player position="pos" />
         </section>
         <section id="right">
