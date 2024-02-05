@@ -1,6 +1,8 @@
 .Map{
-  height:50%;
+  height:47%;
   width:100%;
+  border-radius: 20px ;
+  overflow: hidden;
 }
 
 .current-marker{
