@@ -4,8 +4,6 @@ import "./VideoPlayer.css";
 import { Player, ControlBar } from 'video-react';
 import { React, Component } from 'react';
 
-import Chapter from '../components/Chapter';
-
 import data from '../backend.json';
 const chapters = data.Chapters
 
@@ -59,8 +57,8 @@ export default class VideoPlayer extends Component {
 
   render() {
     return (
-      <div>
-        <Player
+      <div className="VideoPlayer">
+        <Player class="player"
           ref={player => {
             this.player = player;
           }}
