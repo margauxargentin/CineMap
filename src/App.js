@@ -1,10 +1,10 @@
 import './App.css';
 
 import Map from './components/Map';
-import Player from './components/VideoPlayer';
-import Chapter from './components/Chapter';
+import VideoPlayer from './components/VideoPlayer';
 
 function App() {
+
   return (
     <div className="App">
       <header className="App-header">
@@ -12,7 +12,7 @@ function App() {
       </header>
       <main>
         <section id="left">
-          <Player position="pos" />
+          <VideoPlayer />
         </section>
         <section id="right">
           <Map></Map>
@@ -20,6 +20,9 @@ function App() {
       </main>
     </div >
   );
+
+  
 }
+
 
 export default App;
