@@ -9,8 +9,6 @@ import Chapter from '../components/Chapter';
 import data from '../backend.json';
 const chapters = data.Chapters
 
-
-
 export default class VideoPlayer extends Component {
   constructor(props, context) {
     super(props, context);
@@ -20,7 +18,6 @@ export default class VideoPlayer extends Component {
     this.load = this.load.bind(this);
     this.changeCurrentTime = this.changeCurrentTime.bind(this);
     this.seek = this.seek.bind(this);
-    this.changePlaybackRateRate = this.changePlaybackRateRate.bind(this);
   }
 
   componentDidMount() {
@@ -50,7 +47,7 @@ export default class VideoPlayer extends Component {
   changeCurrentTime(seconds) {
     return () => {
       const { player } = this.player.getState();
-      this.player.seek(player.currentTime + seconds);
+      this.player.seek(seconds);
     };
   }
 
@@ -59,15 +56,6 @@ export default class VideoPlayer extends Component {
       this.player.seek(seconds);
     };
   }
-
-  changePlaybackRateRate(steps) {
-    return () => {
-      const { player } = this.player.getState();
-      this.player.playbackRate = player.playbackRate + steps;
-    };
-  }
-
- 
 
   render() {
     return (
@@ -82,31 +70,11 @@ export default class VideoPlayer extends Component {
 
           <ControlBar autoHide={false} />
         </Player>
-        <div className="py-3">
-          <button onClick={this.play} className="mr-3">
-            play()
-          </button>
-          <button onClick={this.pause} className="mr-3">
-            pause()
-          </button>
-          <button onClick={this.load} className="mr-3">
-            load()
-          </button>
-        </div>
-        <div className="pb-3">
-          <button onClick={this.changeCurrentTime(10)} className="mr-3">
-            currentTime += 10
-          </button>
-          <button onClick={this.changeCurrentTime(-10)} className="mr-3">
-            currentTime -= 10
-          </button>
-          <button onClick={this.seek(50)} className="mr-3">
-            currentTime = 50
-          </button>
-        </div>
         <div class="chapters-list">
           {chapters.map((item, index) => (
-            <Chapter title={item.title} pos={item.pos} /*onClick={this.playOnPos(item.pos)}*/></Chapter>
+            <div class="chapter" onClick={this.changeCurrentTime(item.pos)}>
+              <p class="chapter-title">{item.title}</p>
+            </div>
           ))}
         </div>
              
