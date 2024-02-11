@@ -61,3 +61,7 @@
   align-self: self-start;
   margin-left:20px;
 }
+
+.chat-username{
+  font-weight: bold;
+}

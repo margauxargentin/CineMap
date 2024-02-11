@@ -1,8 +1,7 @@
 import React from 'react';
 import './Chat.css';
-import io from 'socket.io-client';
 
-const socket = io('http://localhost:4000');
+const URL = "wss://imr3-react.herokuapp.com";
 
 class Chat extends React.Component {
 
@@ -14,30 +13,48 @@ class Chat extends React.Component {
     }
     this.sendMessage = this.sendMessage.bind(this);
     this.setInput = this.setInput.bind(this)
+    this.addMessage = this.addMessage.bind(this)
+    this.socket = new WebSocket(URL);
+    this.username = "user1"
   }
-  
-  setInput(value){
+
+  setInput(value) {
     this.setState({ input: value });
   }
 
-  sendMessage(e) {
-    e.preventDefault();
-    socket.emit('chat message', this.state.input);
+  sendMessage(e){
+    e.preventDefault();    
+    const message = { name: this.username, message: this.state.input};
+    this.socket.send(JSON.stringify(message));
     this.setInput('');
   };
 
   componentDidMount() {
-    // Subscribe to 'chat message' event
-    socket.on('chat message', (msg) => {
-      this.setState((prevState) => ({
-        messages: [...prevState.messages, msg]
-      }));
-    });
+    this.socket.onopen = () => {
+      console.log("connected");
+      this.setState({
+        connected: true
+      });
+    };
+
+    this.socket.onmessage = evt => {
+      const messages = JSON.parse(evt.data);
+      messages.map(message => this.addMessage(message));
+    };
+
+    this.socket.onclose = () => {
+      console.log("disconnected, reconnect.");
+      this.setState({
+        connected: false,
+        ws: new WebSocket(URL)
+      });
+    };
   }
 
-  componentWillUnmount() {
-    // Unsubscribe from 'chat message' event when component unmounts
-    socket.off('chat message');
+  addMessage(msg) {
+    this.setState((prevState) => ({
+      messages: [...prevState.messages, msg]
+    }));
   }
 
   render() {
@@ -47,7 +64,10 @@ class Chat extends React.Component {
           <p className="external-message message">He</p>
           <p className="internal-message message">Oh</p>
           {this.state.messages.map((message, index) => (
-            <p key={index} className="external-message message">{message}</p>
+            <p key={index} className={"message " + (this.username === message.name ? 'internal-message' : 'external-message')}>
+              {this.username != message.name  ? <span class="chat-username">{message.name} : </span> : null}
+              {message.message}
+              </p>
           ))}
 
         </div>
