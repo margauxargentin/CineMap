@@ -15,7 +15,7 @@ class Chat extends React.Component {
     this.setInput = this.setInput.bind(this)
     this.addMessage = this.addMessage.bind(this)
     this.socket = new WebSocket(URL);
-    this.username = "user1"
+    this.username = `user${Math.floor(Math.random() * 900000) + 100000}`;
   }
 
   setInput(value) {
@@ -30,8 +30,8 @@ class Chat extends React.Component {
   };
 
   componentDidMount() {
+    console.log(`user ${this.username} connected`)
     this.socket.onopen = () => {
-      console.log("connected");
       this.setState({
         connected: true
       });
@@ -43,7 +43,6 @@ class Chat extends React.Component {
     };
 
     this.socket.onclose = () => {
-      console.log("disconnected, reconnect.");
       this.setState({
         connected: false,
         ws: new WebSocket(URL)
@@ -65,7 +64,7 @@ class Chat extends React.Component {
           <p className="internal-message message">Oh</p>
           {this.state.messages.map((message, index) => (
             <p key={index} className={"message " + (this.username === message.name ? 'internal-message' : 'external-message')}>
-              {this.username != message.name  ? <span class="chat-username">{message.name} : </span> : null}
+              {this.username !== message.name  ? <span class="chat-username">{message.name} : </span> : null}
               {message.message}
               </p>
           ))}
