@@ -6,7 +6,6 @@ import 'leaflet/dist/leaflet.css';
 import markerIcon from '../media/marker.svg';
 import transparentMarkerIcon from '../media/marker-transparent.svg'
 import data from '../backend.json';
-import VideoPlayer from './VideoPlayer';
 
 // Fix marker default icon
 let defaultIcon = L.icon({
@@ -23,21 +22,26 @@ L.Marker.prototype.options.icon = defaultIcon;
 
 
 const positions = data.Waypoints
-
 class Map extends React.Component {
-
+  
   constructor(props) {
     super(props)
+   
     this.state = {
-      currPosIndex: 0,
+      currPosIndex: -1,
     }
   }
 
+  goToPosition = (value) => {
+    console.log(value)
+    const { updateTimestamp } = this.props;
+    updateTimestamp(value);
+  };
+
   render() {
-    const { currPosIndex } = this.state;
     return (
       <div className='Map'>
-        <MapContainer center={positions[currPosIndex]} zoom={3} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
+        <MapContainer center={positions[0]} zoom={3} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
@@ -53,8 +57,7 @@ class Map extends React.Component {
               }}>
               <Popup>
                 <p>{item.label}</p>
-                //TODO, LOOK AT :https://eduandabhi.medium.com/react-communication-between-two-sibling-components-using-react-hooks-5835ea3c3d9f
-                <button type="button" onClick={VideoPlayer.changeCurrentTime(item.pos)}>Go</button>
+                <button class="position-bttn" type="button" onClick={console.log(item.timestamp)}>Go</button>
               </Popup>
             </Marker>
           ))}

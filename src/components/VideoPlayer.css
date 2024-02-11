@@ -3,6 +3,7 @@
     width:100%;
 }
 .VideoPlayer .video-react{
+    max-height: 80vh;
     height:50%;
 }
 

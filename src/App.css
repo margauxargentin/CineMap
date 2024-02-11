@@ -27,12 +27,12 @@ main{
 }
 
 #left{
-  width:48%;
+  width:60%;
   height:100%;
 }
 
 #right{
-  width:48%;
+  width:35%;
   height:100%;
   display: flex;
   flex-direction: column;

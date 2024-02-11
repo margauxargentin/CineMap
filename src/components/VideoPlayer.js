@@ -8,9 +8,9 @@ import data from '../backend.json';
 const chapters = data.Chapters
 
 export default class VideoPlayer extends Component {
-  constructor(props, context) {
-    super(props, context);
 
+  constructor(props) {
+    super(props);
     this.play = this.play.bind(this);
     this.pause = this.pause.bind(this);
     this.load = this.load.bind(this);
@@ -19,12 +19,18 @@ export default class VideoPlayer extends Component {
   }
 
   componentDidMount() {
-    // subscribe state change
     this.player.subscribeToStateChange(this.handleStateChange.bind(this));
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.timestamp !== prevProps.timestamp) {
+      if (this.props.timestamp) {
+        this.player.seek(this.props.timestamp);
+      }
+    }
+  }
+
   handleStateChange(state) {
-    // copy player state to this component's state
     this.setState({
       player: state
     });
@@ -44,8 +50,8 @@ export default class VideoPlayer extends Component {
 
   changeCurrentTime(seconds) {
     return () => {
-      const { player } = this.player.getState();
-      this.player.seek(seconds);
+      this.timestamp = seconds
+      this.player.seek(this.timestamp);
     };
   }
 
