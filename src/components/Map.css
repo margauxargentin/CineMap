@@ -8,3 +8,17 @@
 .current-marker{
   background-color: red;
 }
+
+.position-bttn{
+  background-color: red;
+  padding:10px;
+  border-radius: 20px;
+  border-style: none;
+  background-color: rgb(34, 133, 133);
+  color:white;
+  font-weight: bold;
+}
+.position-bttn:hover{
+  background-color: rgb(30, 100, 100);
+  cursor: pointer;
+}
