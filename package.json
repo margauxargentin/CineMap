@@ -6,22 +6,17 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "express": "^4.18.2",
     "leaflet": "^1.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1",
     "react-scripts": "^5.0.1",
     "redux": "^5.0.1",
-    "socket.io": "^4.7.4",
-    "socket.io-client": "^4.7.4",
     "video-react": "^0.16.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm-run-all --parallel server client",
-    "client": "PORT=3008 react-scripts start",
-    "server": "node src/server/index.js",
+    "start": "PORT=3008 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
