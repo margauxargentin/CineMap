@@ -63,6 +63,7 @@ export default class VideoPlayer extends Component {
             this.player = player;
           }}
           autoPlay
+          muted
         >
           <source src={data.Film.file_url} />
 

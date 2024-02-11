@@ -9,18 +9,26 @@
 .chapters-list{
     margin-top:20px;
     height:20%;
-    max-height:100px;
+    max-height:40vh;;
     overflow-y: auto;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
-    background-image: linear-gradient(270deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 5%);;
+    flex-wrap: wrap;
+    background-image: linear-gradient(270deg, rgba(0,0,0,0.25) 0%, rgba(95, 158, 160, 0) 5%);
+    background-color: #5f9ea0;
+    padding: 20px 0px;
+    border-radius: 20px;
+
 }
 .chapter{
+    max-height: 40px;
+    height:100%;
+    margin-bottom: 20px;
+    font-weight: bold;
     border-radius: 10px;
-    width: 100px;
+    width: fit-content;
     padding: 10px 20px;
-    border: 1px solid black;
+    background-color: #95d7d7;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,6 +36,6 @@
 }
 
 .chapter:hover{
-    background-color: #ffa1a1;
+    background-color: #abffff;
     cursor: pointer;
 }
