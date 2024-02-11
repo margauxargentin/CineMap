@@ -6,6 +6,7 @@ import 'leaflet/dist/leaflet.css';
 import markerIcon from '../media/marker.svg';
 import transparentMarkerIcon from '../media/marker-transparent.svg'
 import data from '../backend.json';
+import VideoPlayer from './VideoPlayer';
 
 // Fix marker default icon
 let defaultIcon = L.icon({
@@ -52,7 +53,8 @@ class Map extends React.Component {
               }}>
               <Popup>
                 <p>{item.label}</p>
-                <button type="button">Go</button>
+                //TODO, LOOK AT :https://eduandabhi.medium.com/react-communication-between-two-sibling-components-using-react-hooks-5835ea3c3d9f
+                <button type="button" onClick={VideoPlayer.changeCurrentTime(item.pos)}>Go</button>
               </Popup>
             </Marker>
           ))}
